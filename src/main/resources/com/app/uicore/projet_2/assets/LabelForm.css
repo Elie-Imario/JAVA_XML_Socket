@@ -1,0 +1,27 @@
+/*import font */
+@font-face {
+    font-family: "AvantGarde Bk BT";
+    src: url("../fonts/AvantGardeDemiBT.ttf");
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url('../fonts/Poppins-Regular.ttf');
+}
+
+.label-Form{
+    -fx-font-size: 15px;
+    -fx-font-family: "AvantGarde Bk BT";
+}
+
+.detail{
+    -fx-font-size: 15px;
+    -fx-font-family: "Poppins";
+
+}
+
+.detail-pie-chart{
+    -fx-font-size: 20px;
+    -fx-font-family: "Poppins";
+}
+

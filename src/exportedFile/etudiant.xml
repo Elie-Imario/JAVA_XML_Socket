@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><etudiants>
+<etudiant requestType="AJOUT"><nom>Jay</nom><adresse>Fianara</adresse><bourse>5000</bourse></etudiant>
+<etudiant requestType="AJOUT"><nom>B pascal</nom><adresse>antananarivo</adresse><bourse>50000</bourse></etudiant>
+</etudiants>

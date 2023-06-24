@@ -1,0 +1,17 @@
+/*import font */
+
+@font-face {
+    font-family: Urbanist;
+    src: url('../fonts/urbanist/static/Urbanist-Bold.ttf');
+}
+
+.title-lead{
+    -fx-font-size: 15px;
+    -fx-font-family: "Urbanist";
+    -fx-border-color: #034F75;
+    -fx-border-width: 0 0 0 5;
+}
+.title-lead-Modal{
+    -fx-font-size: 18px;
+    -fx-font-family: "Urbanist";
+}

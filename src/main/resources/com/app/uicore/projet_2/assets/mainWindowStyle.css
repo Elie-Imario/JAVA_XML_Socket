@@ -1,0 +1,211 @@
+/*import font */
+@font-face {
+    font-family: Roboto-light;
+    src: url('../fonts/Roboto/Roboto-Light.ttf');
+}
+
+@font-face {
+    font-family: Roboto-bold;
+    src: url('../fonts/Roboto/Roboto-Bold.ttf');
+}
+
+@font-face {
+    font-family: Urbanist-Semibold;
+    src: url('../fonts/urbanist/static/Urbanist-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: Urbanist-bold;
+    src: url('../fonts/urbanist/static/Urbanist-Bold.ttf');
+}
+
+
+/* STYLE */
+.mainWindow{
+    -fx-border-color: rgb(0, 0, 0,.5);
+    -fx-border-width: 1;
+}
+.sidebar{
+    -fx-background-color: linear-gradient(rgb(12, 91, 160), rgb(0, 0, 30));
+}
+
+.sidebar-menu-nav{
+    -fx-background-color: transparent;
+    -fx-border-color: rgb(255, 255, 255,.4) transparent rgb(0, 0, 0,.2) transparent;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+}
+
+.sidebar-menu-nav.active{
+    -fx-background-color: linear-gradient(to top,rgba(3, 48, 88, 0.5), rgb(0, 0, 30)), linear-gradient(to bottom,rgba(3, 48, 88, 0.5), rgb(0, 0, 30));
+    -fx-cursor: pointer;
+    -fx-border-color: Transparent Transparent Transparent WHITE ;
+    -fx-border-width: 4;
+    -fx-cursor: hand;
+}
+
+.sidebar-brand {
+    -fx-font-size: 30px;
+    -fx-font-family: "";
+}
+
+.top-menu{
+    -fx-background-color: #fff;
+    -fx-border-color: Transparent Transparent rgb(0, 0, 0,.1) Transparent;
+    -fx-border-width: 4;
+}
+.top-menu-item{
+    -fx-border-color: Transparent rgb(0, 0, 0,.1) Transparent Transparent;
+}
+
+.help-link{
+    -fx-border-color: Transparent;
+    -fx-background-color: Transparent;
+    -fx-cursor: hand;
+}
+.deconnexion-link{
+    -fx-border-color: Transparent;
+    -fx-background-color: Transparent;
+    -fx-cursor: hand;
+}
+
+.bloc_page{
+    -fx-background-color: #f5f5f5;
+}
+.scroll_page:focused{
+    -fx-border-color: Transparent;
+    -fx-border-width: 0px 0px 0px 0px;
+    -fx-background-color: Transparent;
+}
+
+.liste-dc,
+.addReader
+{
+    -fx-border-color: #DFE0EB;
+    -fx-border-width: 1;
+    -fx-border-radius: 4px;
+    -fx-background: #FFFFFF;
+    -fx-effect:
+}
+
+/****************
+Button
+*****************/
+
+.btnConfirm{
+    -fx-background-color: #28a745;
+    -fx-cursor: hand;
+}
+.btnConfirm:pressed{
+    -fx-background-color: #077c2e;
+}
+
+.btnCancel{
+    -fx-background-color: #dc3545;
+    -fx-cursor: hand;
+}
+
+.btnCancel:pressed{
+    -fx-background-color: #D70022;
+}
+
+/**************
+Error
+**************/
+
+.error-msg{
+    -fx-text-fill: red;
+    -fx-font-size: 14px;
+    -fx-font-family: "Roboto-light";
+}
+/**************
+Warning
+**************/
+.warning-msg{
+    -fx-text-fill: #ffc107;
+    -fx-font-size: 14px;
+    -fx-font-family: "Roboto-light";
+}
+
+/*****************
+Date
+****************/
+.datepicker table tr td.day.today.active {
+    background-color: #c80f2d;
+    background-image: none;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+
+
+/****************
+Mon compte
+*****************/
+
+.changePassword-header{
+    -fx-background-color: linear-gradient(rgb(12, 91, 160), rgb(0, 0, 30));
+}
+.block{
+    -fx-border-width: 20px 0px 0px 0px;
+    -fx-border-color: #084079 Transparent Transparent Transparent;
+}
+
+.updatepswrdForm{
+    -fx-border-color: rgb(0, 0, 0,.1);
+    -fx-border-width: 2;
+}
+
+
+
+
+/*****************
+
+******************/
+
+
+
+
+.card-box{
+    -fx-background-color: #fff;
+    -fx-border-color: rgb(0, 0, 0,.1);
+    -fx-border-width: 2;
+    -fx-border-radius: 1;
+}
+
+
+/**********************
+---------PRET-----------
+************************/
+
+.form-input-disabled{
+    -fx-background-color: #d0d0d0;
+    -fx-border-color: rgba(0,0,0,0.2);
+    -fx-border-width: 1;
+    -fx-border-radius: 3;
+}
+.btn{
+    -fx-border-radius: 3;
+    -fx-padding: 8;
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-border-color: #034F75;
+    -fx-text-fill: #034F75;
+    -fx-font-family: "Urbanist-Semibold";
+}
+.btn .btn-ico{
+    -fx-fill: #034F75;
+}
+
+.btn:pressed .btn-ico{
+    -fx-fill: #FFFFFF;
+}
+
+.btn:pressed{
+    -fx-background-color: #034F75;
+    -fx-border-color: #034F75;
+    -fx-text-fill: #FFFFFF;
+}
+
