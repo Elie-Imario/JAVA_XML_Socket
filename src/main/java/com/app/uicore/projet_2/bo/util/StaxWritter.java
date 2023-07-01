@@ -1,7 +1,8 @@
-package com.app.core.util;
+package com.app.uicore.projet_2.bo.util;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -16,6 +17,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.RandomAccessFile;
 
 public class StaxWritter {
     private String OutPutFile;
@@ -55,9 +57,9 @@ public class StaxWritter {
     }
 
     public void saveDataToCurrentFIle(Long IdEtudiant, String name, String adresse, int bourse, String _requestType) throws Exception{
-
         try {
-            File xmlFile = new File("src\\exportedFile\\etudiant.xml");
+            String file_path = System.getProperty("user.home") + "\\Downloads\\exportedFile\\etudiant.xml";
+            File xmlFile = new File(file_path);
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document document = documentBuilder.parse(xmlFile);
@@ -105,12 +107,16 @@ public class StaxWritter {
             documentElement.appendChild(document.createTextNode("\n"));
             document.replaceChild(documentElement, documentElement);
             Transformer tFormer = TransformerFactory.newInstance().newTransformer();
-            tFormer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS, "xml");
+            tFormer.setOutputProperty(OutputKeys.INDENT, "yes");
+            //tFormer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS, "xml");
             Source source = new DOMSource(document);
             Result result = new StreamResult(xmlFile);
             tFormer.transform(source, result);
 
-            } catch (Exception ex) {
+            RandomAccessFile randomAccessFile = new RandomAccessFile(xmlFile, "rw");
+            randomAccessFile.close();
+
+        } catch (Exception ex) {
                 System.out.println(ex);
             }
     }
@@ -119,7 +125,9 @@ public class StaxWritter {
     public NodeList getNodeList() throws Exception{
         NodeList nodeList = null;
         try{
-            File xmlFile = new File("src\\exportedFile\\etudiant.xml");
+            String file_path = System.getProperty("user.home") + "\\Downloads\\exportedFile\\etudiant.xml";
+            File xmlFile = new File(file_path);
+
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document document = documentBuilder.parse(xmlFile);
@@ -224,6 +232,7 @@ public class StaxWritter {
         EndElement mainEndElement = eventFactory.createEndElement("", "", "etudiant");
         xmlEventWriter.add(mainEndElement);
         xmlEventWriter.add(end);
+
     }
 
     private void createNode_for_delete(XMLEventWriter xmlEventWriter,Long _Id, String reqValuevalue)
@@ -248,6 +257,35 @@ public class StaxWritter {
         EndElement mainEndElement = eventFactory.createEndElement("", "", "etudiant");
         xmlEventWriter.add(mainEndElement);
         xmlEventWriter.add(end);
+
     }
 
+    
+    public void deleteXMLContent(File XMlFile){
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse(XMlFile);
+
+
+            Node etudiantsNode = document.getElementsByTagName("etudiants").item(0);
+            NodeList childNodes = etudiantsNode.getChildNodes();
+            for (int i = childNodes.getLength() - 1; i >= 0; i--) {
+                Node child = childNodes.item(i);
+                etudiantsNode.removeChild(child);
+            }
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+            DOMSource source = new DOMSource(document);
+            StreamResult result = new StreamResult(XMlFile);
+            transformer.transform(source, result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 }

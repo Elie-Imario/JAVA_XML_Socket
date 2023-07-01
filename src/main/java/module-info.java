@@ -7,10 +7,14 @@ module com.app.uicore.projet_2 {
     requires org.hibernate.orm.core;
     requires java.naming;
     requires java.xml;
+    requires java.sql;
+    requires org.hibernate.commons.annotations;
 
-    opens com.app.uicore.projet_2 to javafx.fxml;
+
     exports com.app.uicore.projet_2;
     exports com.app.uicore.projet_2.bo;
-    exports com.app.uicore.projet_2.boController;
+    exports com.app.uicore.projet_2.bo.beans;
+    opens com.app.uicore.projet_2 to javafx.fxml;
+    opens com.app.uicore.projet_2.bo.beans;
     opens com.app.uicore.projet_2.bo to javafx.fxml;
 }

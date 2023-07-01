@@ -1,4 +1,4 @@
-package com.app.core.server;
+package com.app.uicore.projet_2.bo.server;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -7,44 +7,60 @@ import java.io.*;
 
 public class Client {
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) {
         Timer timer = new Timer();
+        long interval = 5000; // 5 secondes d'interval pour la boucle qui check la connexion
 
-        CheckConnection checkConnection = new CheckConnection();
-        timer.scheduleAtFixedRate(checkConnection, 0, 4000);// Exécution toutes les 4 secondes
-    }
-
-    static class CheckConnection extends TimerTask {
-        private boolean state;
-        @Override
-        public void run() {
-            Socket socket = new Socket();
-            InetSocketAddress serverAddress = new InetSocketAddress("127.0.0.1", 8000);
-            try {
-                socket.connect(serverAddress);
-                this.setState(true);
-                System.out.println("Le serveur est en marche.");
-                // afficher que la connection marche 
-            } catch (IOException e) {
-                this.setState(false);
-                System.out.println("Le serveur n'est pas accessible.");
-
-                // afficher que la connection est coupée
-            } finally {
+        TimerTask serverSocketCheckerTask = new TimerTask() {
+            @Override
+            public void run() {
+                String serverIP = "127.0.0.1";
+                int serverPort = 8000;
                 try {
-                    socket.close();
-                } catch (IOException e) {
+                    Socket socket = new Socket();
+                    boolean serverState = isServerRunning(serverIP, serverPort, socket);
+                    if(serverState){
+                        System.out.println("----------connectée!-------------");
+                        try {
+                            BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                            PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
+
+                            output.println("Connexion au serveur...");
+
+                            String response = input.readLine();
+
+                            if (response.equals("DataUploaded")) {
+                                String path = System.getProperty("user.home") + "\\Downloads\\exportedFile\\etudiant.xml";
+                                File file = new File(path);
+                                if (file.exists()) file.delete();
+                                System.out.println("Enregistrement effectué");
+
+                            }else{
+                                System.out.println("En stand by");
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }else{
+                        System.out.println("--------------non connectée!----------------------");
+                    }
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-        }
+        };
 
-        public boolean isState() {
-            return state;
-        }
+        timer.scheduleAtFixedRate(serverSocketCheckerTask, 0, interval);
 
-        public void setState(boolean state) {
-            this.state = state;
+    }
+
+    public static boolean isServerRunning(String _serverIp, int serverPort, Socket socket) {
+        try{
+            int timeout = 5000; // 5 secondes
+            socket.connect(new InetSocketAddress(_serverIp, serverPort), timeout);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 }

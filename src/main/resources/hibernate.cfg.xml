@@ -21,7 +21,7 @@
         <property name="dialect">org.hibernate.dialect.PostgreSQL82Dialect</property>
 		
 		<!-- Echo the SQL to stdout -->
-        <property name="show_sql">true</property>
+        <property name="show_sql">false</property>
 
         <!-- Set the current session context -->
 		<property name="current_session_context_class">thread</property>
@@ -35,7 +35,7 @@
 
 
 		<!-- Enities to map -->
-        <mapping class="com.app.core.beans.Etudiant" />
+        <mapping class="com.app.uicore.projet_2.bo.beans.Etudiant" />
 
     </session-factory>
 

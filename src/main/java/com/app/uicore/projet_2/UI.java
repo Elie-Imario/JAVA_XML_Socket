@@ -1,12 +1,14 @@
 package com.app.uicore.projet_2;
 
-import com.app.core.util.StaxWritter;
+import com.app.uicore.projet_2.bo.beans.Etudiant;
 import com.app.uicore.projet_2.bo.service.EtudiantService;
+import com.app.uicore.projet_2.bo.util.StaxWritter;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.File;
+import java.util.List;
 import java.util.Scanner;
 
 public class UI {
@@ -20,7 +22,8 @@ public class UI {
         System.out.println("1- Ajouter un etudiant" +
                 "\n 2- Modifier un etudiant" +
                 "\n 3- Supprimer un etudiant" +
-                "\n 4- Lister les etudiants");
+                "\n 4- Lister les données dans XML" +
+                "\n 5- Lister les etudiants");
 
         System.out.println("Quel est votre choix?");
         choice = sc.nextInt();
@@ -40,14 +43,16 @@ public class UI {
             bourse = sc.nextInt();
 
             //verify File
-            String path = "src\\exportedFile\\etudiant.xml";
-            File file = new File(path);
+            String file_path = System.getProperty("user.home") + "\\Downloads\\exportedFile\\etudiant.xml";
+
+            //String path = "src\\exportedFile\\etudiant.xml";
+            File file = new File(file_path);
             boolean flag;
 
             flag = !file.exists();
 
             if(flag){
-                staxWritter.setFile("src\\exportedFile\\etudiant.xml");
+                staxWritter.setFile(file_path);
                 etudiantService.saveEtudiantData_toXML(staxWritter, null, firstname, adresse, bourse, "AJOUT");
             }
             else{
@@ -70,14 +75,17 @@ public class UI {
             newBourse = sc.nextInt();
 
             //verify File
-            String path = "src\\exportedFile\\etudiant.xml";
-            File file = new File(path);
+            String file_path = System.getProperty("user.home") + "\\Downloads\\exportedFile\\etudiant.xml";
+
+            //String path = "src\\exportedFile\\etudiant.xml";
+            File file = new File(file_path);
             boolean flag;
 
             flag = !file.exists();
 
             if(flag){
-                staxWritter.setFile("src\\exportedFile\\etudiant.xml");
+                //staxWritter.setFile("src\\exportedFile\\etudiant.xml");
+                staxWritter.setFile(file_path);
                 etudiantService.saveEtudiantData_toXML(staxWritter, id_to_edit, newName, newAdresse, newBourse, "EDIT");
             }
             else{
@@ -88,14 +96,18 @@ public class UI {
             System.out.println("Quel etudiant voulez vous retirer?");
             Long id_to_delete = sc.nextLong();
             //verify File
-            String path = "src\\exportedFile\\etudiant.xml";
-            File file = new File(path);
+
+            String file_path = System.getProperty("user.home") + "\\Downloads\\exportedFile\\etudiant.xml";
+
+            //String path = "src\\exportedFile\\etudiant.xml";
+            File file = new File(file_path);
             boolean flag;
 
             flag = !file.exists();
 
             if(flag){
-                staxWritter.setFile("src\\exportedFile\\etudiant.xml");
+//                staxWritter.setFile("src\\exportedFile\\etudiant.xml");
+                staxWritter.setFile(file_path);
                 etudiantService.saveEtudiantData_toXML(staxWritter, id_to_delete, null, null, 0, "DELETE");
             }
             else{
@@ -115,7 +127,21 @@ public class UI {
             }
 
 
-        }else{
+        }
+        else if(choice == 5){
+            System.out.println("Voici la liste des etudiants");
+
+
+            List<Etudiant> etudiants= etudiantService.getListEtudiant();
+            for (Etudiant etudiant : etudiants) {
+                System.out.println("nom: "+etudiant.getNom()+"/"+"adresse: "+etudiant.getAdresse()+"/"+"bourse: "+etudiant.getBourse());
+                System.out.println("-------------------------------------------------------------------");
+            }
+
+
+        }
+
+        else{
             System.out.println("Mauvais choix");
         }
     }
